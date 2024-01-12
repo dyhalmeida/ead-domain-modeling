@@ -18,13 +18,14 @@ export class Validator {
     }
 
     static isSmallerThan({ value, size, errorMessage }: { value: string | any[], size: number, errorMessage: string}): ErrorValidation | null {
-        if (value.length < size) return null
-        return ErrorValidation.new({ code: errorMessage, value, extras: { max: size } })
+        if (value.length < size) return ErrorValidation.new({ code: errorMessage, value, extras: { min: size } })
+        return null
+        
     }
 
     static isBiggerThan({ value, size, errorMessage }: { value: string | any[], size: number, errorMessage: string}): ErrorValidation | null {
-        if (value.length > size) return null
-        return ErrorValidation.new({ code: errorMessage, value, extras: { min: size } })
+        if (value.length > size) return ErrorValidation.new({ code: errorMessage, value, extras: { max: size } })
+        return null
     }
 
     static isValidRegex({ value, regex, errorMessage }: { value: string, regex: RegExp, errorMessage: string }): ErrorValidation | null {

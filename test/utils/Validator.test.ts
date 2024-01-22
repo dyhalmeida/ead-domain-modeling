@@ -44,6 +44,17 @@ describe('Validator', () => {
         expect(error?.code).toBe('ANY_ERROR_MESSAGE')
     })
 
+    it('Should return null if the value length is smaller or equal than size', () => {
+        const error = Validator.isSmallerThanOrEqual({ value: 'ANY_TEXT_OR_TEXT', size: 10, errorMessage: 'ANY_ERROR_MESSAGE' })
+        expect(error).toBeNull()
+    })
+
+    it('Should return null if the value length is smaller or equal than size', () => {
+        const error = Validator.isSmallerThanOrEqual({ value: 'ANY_TEXT_OR_TEXT', size: 16, errorMessage: 'ANY_ERROR_MESSAGE' })
+        expect(error).toBeInstanceOf(ErrorValidation)
+        expect(error?.code).toBe('ANY_ERROR_MESSAGE')
+    })
+
     it('Should return null if the value length is not bigger than size', () => {
         const error = Validator.isBiggerThan({ value: 'ANY_TEXT', size: 10, errorMessage: 'ANY_ERROR_MESSAGE' })
         expect(error).toBeNull()
@@ -51,6 +62,17 @@ describe('Validator', () => {
 
     it('Should return an instance of ErrorValidation if the value length is bigger than size', () => {
         const error = Validator.isBiggerThan({ value: 'ANY_TEXT_OR_TEXT', size: 10, errorMessage: 'ANY_ERROR_MESSAGE' })
+        expect(error).toBeInstanceOf(ErrorValidation)
+        expect(error?.code).toBe('ANY_ERROR_MESSAGE')
+    })
+
+    it('Should return null if the value length is not bigger or equal than size', () => {
+        const error = Validator.isBiggerThanOrEqual({ value: 'ANY_TEXT', size: 10, errorMessage: 'ANY_ERROR_MESSAGE' })
+        expect(error).toBeNull()
+    })
+
+    it('Should return null if the value length is not bigger or equal than size', () => {
+        const error = Validator.isBiggerThanOrEqual({ value: 'ANY_TEXT', size: 8, errorMessage: 'ANY_ERROR_MESSAGE' })
         expect(error).toBeInstanceOf(ErrorValidation)
         expect(error?.code).toBe('ANY_ERROR_MESSAGE')
     })

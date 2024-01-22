@@ -20,11 +20,20 @@ export class Validator {
     static isSmallerThan({ value, size, errorMessage }: { value: string | any[], size: number, errorMessage: string}): ErrorValidation | null {
         if (value.length < size) return ErrorValidation.new({ code: errorMessage, value, extras: { min: size } })
         return null
-        
+    }
+
+    static isSmallerThanOrEqual({ value, size, errorMessage }: { value: string | any[], size: number, errorMessage: string}): ErrorValidation | null {
+        if (value.length <= size) return ErrorValidation.new({ code: errorMessage, value, extras: { min: size } })
+        return null
     }
 
     static isBiggerThan({ value, size, errorMessage }: { value: string | any[], size: number, errorMessage: string}): ErrorValidation | null {
         if (value.length > size) return ErrorValidation.new({ code: errorMessage, value, extras: { max: size } })
+        return null
+    }
+
+    static isBiggerThanOrEqual({ value, size, errorMessage }: { value: string | any[], size: number, errorMessage: string}): ErrorValidation | null {
+        if (value.length >= size) return ErrorValidation.new({ code: errorMessage, value, extras: { max: size } })
         return null
     }
 

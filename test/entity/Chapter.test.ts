@@ -137,4 +137,51 @@ describe('Chapter', () => {
         expect(chapter.props.classes![1].order).toBe(2)
         expect(chapter.props.classes![2].order).toBe(3)
     })
+
+    it('Should add a class in the last position in an instance of a Chapter', () => {
+        const classes: IClassProps[] = [
+            { name: 'Any class #1', url: 'https://youtube.com/class/1', duration: 120 },
+            { name: 'Any class #2', url: 'https://youtube.com/class/2', duration: 180 },
+            { name: 'Any class #3', url: 'https://youtube.com/class/3', duration: 180 },
+        ]
+        const chapter = new Chapter({
+            name: 'Any chapter name #1',
+            classes: [...classes],
+            order: 1
+        })
+
+        const _class = new Class({
+            name: 'Any class #4',
+            duration: 220,
+            url: 'https://youtube.com/class/4'
+        })
+
+        const newChapter = chapter.addClass(_class)
+        expect(newChapter.lastClass.name.value).toBe(_class.name.value)
+        expect(newChapter.totalClasses).toBe(4)
+    })
+
+    it('Should add a class in the first position in an instance of a Chapter', () => {
+        const classes: IClassProps[] = [
+            { name: 'Any class #2', url: 'https://youtube.com/class/1', duration: 120 },
+            { name: 'Any class #3', url: 'https://youtube.com/class/2', duration: 180 },
+            { name: 'Any class #4', url: 'https://youtube.com/class/3', duration: 180 },
+        ]
+        const chapter = new Chapter({
+            name: 'Any chapter name #1',
+            classes: [...classes],
+            order: 1
+        })
+
+        const _class = new Class({
+            name: 'Any class #1',
+            duration: 220,
+            url: 'https://youtube.com/class/4'
+        })
+
+        const position = 0
+        const newChapter = chapter.addClass(_class, position)
+        expect(newChapter.firstClass.name.value).toBe(_class.name.value)
+        expect(newChapter.totalClasses).toBe(4)
+    })
 })

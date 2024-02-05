@@ -185,7 +185,7 @@ describe('Chapter', () => {
         expect(newChapter.totalClasses).toBe(4)
     })
 
-    it('isso deve remover a aula 3 de uma instância de Capítulo', () => {
+    it('Should remove class 3 from a Chapter instance', () => {
         const classes: IClassProps[] = [
             { name: 'Any class #1', url: 'https://youtube.com/class/1', duration: 120 },
             { name: 'Any class #2', url: 'https://youtube.com/class/2', duration: 180 },
@@ -200,4 +200,37 @@ describe('Chapter', () => {
         const newChapter = chapter.removeClass(chapter.classes[1])
         expect(newChapter.totalClasses).toBe(2)
     })
+
+    it('Should move up one class in a chapter instance', () => {
+        const classes: IClassProps[] = [
+            { name: 'Any class #1', url: 'https://youtube.com/class/1', duration: 120 },
+            { name: 'Any class #2', url: 'https://youtube.com/class/2', duration: 180 },
+            { name: 'Any class #3', url: 'https://youtube.com/class/3', duration: 180 },
+        ]
+        const chapter = new Chapter({
+            name: 'Any chapter name #1',
+            classes: [...classes],
+            order: 1
+        })
+        const secondClass = chapter.classes[1]
+        const newChapter = chapter.moveClassUp(secondClass)
+        expect(newChapter.firstClass.name.value).toBe(secondClass.name.value)
+    })
+
+    it('Should ignore when moving the first class up in a chapter instance', () => {
+        const classes: IClassProps[] = [
+            { name: 'Any class #1', url: 'https://youtube.com/class/1', duration: 120 },
+            { name: 'Any class #2', url: 'https://youtube.com/class/2', duration: 180 },
+            { name: 'Any class #3', url: 'https://youtube.com/class/3', duration: 180 },
+        ]
+        const chapter = new Chapter({
+            name: 'Any chapter name #1',
+            classes: [...classes],
+            order: 1
+        })
+        const firstClass = chapter.classes[0]
+        const newChapter = chapter.moveClassUp(firstClass)
+        expect(newChapter).toBe(chapter)
+    })
+
 })

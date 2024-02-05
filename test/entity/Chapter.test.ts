@@ -184,4 +184,20 @@ describe('Chapter', () => {
         expect(newChapter.firstClass.name.value).toBe(_class.name.value)
         expect(newChapter.totalClasses).toBe(4)
     })
+
+    it('isso deve remover a aula 3 de uma instância de Capítulo', () => {
+        const classes: IClassProps[] = [
+            { name: 'Any class #1', url: 'https://youtube.com/class/1', duration: 120 },
+            { name: 'Any class #2', url: 'https://youtube.com/class/2', duration: 180 },
+            { name: 'Any class #3', url: 'https://youtube.com/class/3', duration: 180 },
+        ]
+        const chapter = new Chapter({
+            name: 'Any chapter name #1',
+            classes: [...classes],
+            order: 1
+        })
+
+        const newChapter = chapter.removeClass(chapter.classes[1])
+        expect(newChapter.totalClasses).toBe(2)
+    })
 })

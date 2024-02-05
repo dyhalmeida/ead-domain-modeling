@@ -233,4 +233,35 @@ describe('Chapter', () => {
         expect(newChapter).toBe(chapter)
     })
 
+    it('Should move one class down one chapter instance', () => {
+        const classes: IClassProps[] = [
+            { name: 'Any class #1', url: 'https://youtube.com/class/1', duration: 120 },
+            { name: 'Any class #2', url: 'https://youtube.com/class/2', duration: 180 },
+            { name: 'Any class #3', url: 'https://youtube.com/class/3', duration: 180 },
+        ]
+        const chapter = new Chapter({
+            name: 'Any chapter name #1',
+            classes: [...classes],
+            order: 1
+        })
+        const secondClass = chapter.classes[1]
+        const newChapter = chapter.moveClassDown(secondClass)
+        expect(newChapter.lastClass.name.value).toBe(secondClass.name.value)
+    })
+
+    it('Should ignore when moving the last class down in a chapter instance', () => {
+        const classes: IClassProps[] = [
+            { name: 'Any class #1', url: 'https://youtube.com/class/1', duration: 120 },
+            { name: 'Any class #2', url: 'https://youtube.com/class/2', duration: 180 },
+            { name: 'Any class #3', url: 'https://youtube.com/class/3', duration: 180 },
+        ]
+        const chapter = new Chapter({
+            name: 'Any chapter name #1',
+            classes: [...classes],
+            order: 1
+        })
+        const lastClass = chapter.classes[2]
+        const newChapter = chapter.moveClassDown(lastClass)
+        expect(newChapter).toBe(chapter)
+    })
 })

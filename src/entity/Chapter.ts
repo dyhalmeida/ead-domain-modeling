@@ -55,6 +55,16 @@ export class Chapter extends Entity<IChapterProps, Chapter> {
         return this.clone({ classes })
     }
 
+    moveClass(_class: Class, position: number): Chapter {
+        return this.removeClass(_class).addClass(_class, position)
+    }
+
+    moveClassUp(_class: Class): Chapter {
+        const position = this.classes.findIndex((c) => c.isEqual(_class))
+        const isFirstClass = position === 0
+        return isFirstClass ? this : this.moveClass(_class, position - 1)
+    }
+
     get duration(): Duration {
         return this.classes.reduce((totalDuration: Duration, _class: Class) => {
             return totalDuration.sum(_class.duration)

@@ -65,6 +65,12 @@ export class Chapter extends Entity<IChapterProps, Chapter> {
         return isFirstClass ? this : this.moveClass(_class, position - 1)
     }
 
+    moveClassDown(_class: Class): Chapter {
+        const position = this.classes.findIndex((c) => c.isEqual(_class))
+        const isLastClass = position === this.classes.length - 1
+        return isLastClass ? this : this.moveClass(_class, position + 1)
+    }
+
     get duration(): Duration {
         return this.classes.reduce((totalDuration: Duration, _class: Class) => {
             return totalDuration.sum(_class.duration)

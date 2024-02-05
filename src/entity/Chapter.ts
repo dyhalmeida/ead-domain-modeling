@@ -40,6 +40,15 @@ export class Chapter extends Entity<IChapterProps, Chapter> {
         return Chapter.assignOrders(orderedClasses).map((c) => c.props)
     }
 
+    addClass(_class: Class, position?: number): Chapter {
+        const newClasses = position !== undefined
+            ? [...this.classes.slice(0, position), _class, ...this.classes.slice(position)]
+            : [...this.classes, _class]
+
+        const classes = Chapter.assignOrders(newClasses).map((c) => c.props)
+        return this.clone({ classes })
+    }
+
     get duration(): Duration {
         return this.classes.reduce((totalDuration: Duration, _class: Class) => {
             return totalDuration.sum(_class.duration)

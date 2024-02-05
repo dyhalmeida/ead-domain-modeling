@@ -49,6 +49,12 @@ export class Chapter extends Entity<IChapterProps, Chapter> {
         return this.clone({ classes })
     }
 
+    removeClass(_class: Class): Chapter {
+        const filteredClasses = this.classes.filter((c) => c.isDifferent(_class))
+        const classes = Chapter.assignOrders(filteredClasses).map((c) => c.props)
+        return this.clone({ classes })
+    }
+
     get duration(): Duration {
         return this.classes.reduce((totalDuration: Duration, _class: Class) => {
             return totalDuration.sum(_class.duration)

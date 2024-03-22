@@ -21,7 +21,7 @@ export class Class extends Entity<IClassProps, Class> {
 
     constructor(props: IClassProps) {
         super({...props, order: props.order ?? 1})
-        this.name = new SimpleName({ value: props.name ?? '', min: 3, max: 50 })
+        this.name = new SimpleName({ value: props.name ?? '', min: 2, max: 50 })
         this.duration = new Duration(this.props.duration)
         this.url = new Url(this.props.url)
         this.order = new Order(this.props.order)

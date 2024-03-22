@@ -1,4 +1,4 @@
-import { IUserProps, User } from "@/entity/User";
+import { IUserProps, User } from '@/entity/User'
 import { faker } from '@faker-js/faker'
 
 export class UserBuilder {
